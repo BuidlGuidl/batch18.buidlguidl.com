@@ -6,7 +6,6 @@ import "./BatchGraduationNFT.sol";
 
 contract BatchRegistry is Ownable {
     uint16 public immutable BATCH_NUMBER;
-    uint256 constant CHECK_IN_REWARD = 0.01 ether;
     BatchGraduationNFT public batchGraduationNFT;
 
     mapping(address => bool) public allowList;
@@ -68,8 +67,6 @@ contract BatchRegistry is Ownable {
         if (yourContractAddress[tx.origin] == address(0)) {
             checkedInCounter++;
             wasFirstTime = true;
-            (bool success,) = tx.origin.call{value: CHECK_IN_REWARD}("");
-            require(success, "Failed to send check in reward");
         }
 
         yourContractAddress[tx.origin] = msg.sender;
