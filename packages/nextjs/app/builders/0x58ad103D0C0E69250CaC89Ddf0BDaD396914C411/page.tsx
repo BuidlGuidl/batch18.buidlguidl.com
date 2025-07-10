@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import { Address } from "~~/components/scaffold-eth";
 
-const BuilderPage: NextPage = () => {
+const RoguePage: NextPage = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-black text-white p-4">
       {/* Hero Section */}
@@ -47,7 +47,7 @@ const BuilderPage: NextPage = () => {
           ].map(skill => (
             <span
               key={skill}
-              className="px-4 py-2 bg-emerald-600/20 border border-emerald-400/30 rounded-full text-emerald-200 hover:bg-emerald-600/30 transition-colors cursor-default"
+              className="px-4 py-2 bg-emerald-600/20 border border-emerald-400/30 rounded-full text-emerald-200 transition-colors cursor-default"
             >
               {skill}
             </span>
@@ -136,4 +136,4 @@ const BuilderPage: NextPage = () => {
   );
 };
 
-export default BuilderPage;
+export default RoguePage;
