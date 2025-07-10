@@ -10,7 +10,7 @@ const RoguePage: NextPage = () => {
         <div className="flex flex-col items-center mb-4">
           <Image src="/favicon.png" alt="Logo" width={120} height={120} className="rounded-full mb-4" />
         </div>
-        <h1 className="text-5xl font-extrabold mb-2 bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
+        <h1 className="font-extrabold mb-2 bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent text-xl md:text-2xl lg:text-3xl">
           MrRogueKnight
         </h1>
         <p className="text-lg text-gray-600 dark:text-gray-300 mb-4 italic">Web3 Builder · Smart Contracts</p>
