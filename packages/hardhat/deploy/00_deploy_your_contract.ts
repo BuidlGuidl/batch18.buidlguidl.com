@@ -12,7 +12,20 @@ const BATCH_NUMBER = "18";
  * @param hre HardhatRuntimeEnvironment object.
  */
 const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
-  /*
+  const { deployer } = await hre.getNamedAccounts();
+  const { deploy } = hre.deployments;
+
+  if (hre.network.name === "arbitrum") {
+    const batchRegistryAddress = "0xB0AAC3739B3C025DE1829BCA87FC9993e4a28721";
+    await deploy("CheckIn", {
+      from: deployer,
+      args: [batchRegistryAddress, deployer],
+      log: true,
+    });
+    const checkIn = await hre.ethers.getContract<Contract>("CheckIn", deployer);
+    console.log("CheckIn contract deployed to:", await checkIn.getAddress());
+  } else {
+    /*
     On localhost, the deployer account is the one that comes with Hardhat, which is already funded.
 
     When deploying to live networks (e.g `yarn deploy --network sepolia`), the deployer account
@@ -22,27 +35,40 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
     existing PK which will fill DEPLOYER_PRIVATE_KEY_ENCRYPTED in the .env file (then used on hardhat.config.ts)
     You can run the `yarn account` command to check your balance in every network.
   */
-  const { deployer } = await hre.getNamedAccounts();
-  const { deploy } = hre.deployments;
+    await deploy("BatchRegistry", {
+      from: deployer,
+      // Contract constructor arguments
+      args: [deployer, BATCH_NUMBER],
+      log: true,
+      // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
+      // automatically mining the contract deployment transaction. There is no effect on live networks.
+      autoMine: true,
+    });
 
-  await deploy("BatchRegistry", {
-    from: deployer,
-    // Contract constructor arguments
-    args: [deployer, BATCH_NUMBER],
-    log: true,
-    // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
-    // automatically mining the contract deployment transaction. There is no effect on live networks.
-    autoMine: true,
-  });
+    // Get the deployed contract to interact with it after deploying.
+    const batchRegistry = await hre.ethers.getContract<Contract>("BatchRegistry", deployer);
+    console.log("\nBatchRegistry deployed to:", await batchRegistry.getAddress());
+    // Add the deployer to the allow list
+    await batchRegistry.updateAllowList([deployer], [true]);
+    console.log("Added deployer to allow list");
 
-  // Get the deployed contract to interact with it after deploying.
-  const batchRegistry = await hre.ethers.getContract<Contract>("BatchRegistry", deployer);
-  console.log("\nBatchRegistry deployed to:", await batchRegistry.getAddress());
-  console.log("Remember to update the allow list!\n");
+    // The GraduationNFT contract is deployed on the BatchRegistry constructor.
+    const batchGraduationNFTAddress = await batchRegistry.batchGraduationNFT();
+    console.log("BatchGraduation NFT deployed to:", batchGraduationNFTAddress, "\n");
 
-  // The GraduationNFT contract is deployed on the BatchRegistry constructor.
-  const batchGraduationNFTAddress = await batchRegistry.batchGraduationNFT();
-  console.log("BatchGraduation NFT deployed to:", batchGraduationNFTAddress, "\n");
+    // Deploy the CheckIn contract
+    await deploy("CheckIn", {
+      from: deployer,
+      // Contract constructor arguments
+      args: [await batchRegistry.getAddress(), deployer],
+      log: true,
+      autoMine: true,
+    });
+
+    // Get the deployed CheckIn contract
+    const checkIn = await hre.ethers.getContract<Contract>("CheckIn", deployer);
+    console.log("CheckIn contract deployed to:", await checkIn.getAddress(), "\n");
+  }
 };
 
 export default deployYourContract;
