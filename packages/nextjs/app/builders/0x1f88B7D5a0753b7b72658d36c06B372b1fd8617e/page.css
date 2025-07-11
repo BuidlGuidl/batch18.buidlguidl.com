@@ -1,0 +1,68 @@
+.skill-container {
+    box-shadow: 0 5px 10px 2px var(--color-base-300);
+}
+
+.skill-value {
+    position: relative;
+    overflow: hidden;
+    background: var(--color-base-100);
+}
+
+.skill-value-bg {
+    height: 100%;
+    position: absolute;
+    left: -100%;
+    width: 100%;
+    animation: 2s slide 2s forwards;
+    background: #93BBFB;
+    background: linear-gradient(90deg,var(--color-success) 0%, var(--color-success) attr(data-skill-pre-value %), var(--color-base-100) attr(data-skill-value %));
+}
+
+.glasses {
+    position: absolute;
+    top: 63px;
+    left: 28px;
+    animation: 1s scale-up-center 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+
+@keyframes scale-up-center {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes slide {
+    0% { left: -100%; }
+    50% { left: -50%; }
+    100% { left: 0; }
+}
+
+.loader {
+    width: 48px;
+    height: 48px;
+    border:10px solid var(--color-base-100);
+    border-radius: 50%;
+    position: relative;
+    transform:rotate(45deg);
+    box-sizing: border-box;
+}
+.loader::before {
+    content: "";
+    position: absolute;
+    box-sizing: border-box;
+    inset:-10px;
+    border-radius: 50%;
+    border:10px solid var(--color-success);
+    animation: prixClipFix 2s infinite linear;
+}
+
+@keyframes prixClipFix {
+    0%   {clip-path:polygon(50% 50%,0 0,0 0,0 0,0 0,0 0)}
+    25%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 0,100% 0,100% 0)}
+    50%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,100% 100%,100% 100%)}
+    75%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 100%)}
+    100% {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 0)}
+}
