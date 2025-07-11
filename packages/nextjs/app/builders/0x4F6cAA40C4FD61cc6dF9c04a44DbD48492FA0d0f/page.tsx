@@ -1,11 +1,12 @@
 import Image from "next/image";
 import { DiscordIcon, GithubIcon, XIcon } from "../../../components/assets/Icons";
 import { Address } from "../../../components/scaffold-eth/Address/Address";
+import { NextPage } from "next";
 
-export default function BuilderPage() {
+const RahulDevRio: NextPage = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-100 via-white to-purple-200 dark:from-gray-950 dark:via-gray-900 dark:to-gray-800">
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-2xl p-4 sm:p-8 flex flex-col items-center w-full max-w-xs sm:max-w-md border border-gray-200 dark:border-gray-700 transition duration-300 hover:shadow-[0_0_32px_8px_rgba(168,85,247,0.3)] hover:border-purple-400 dark:hover:shadow-[0_0_32px_8px_rgba(168,85,247,0.5)] dark:hover:border-purple-500">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-2xl p-4 sm:p-8 flex flex-col items-center w-full max-w-xs sm:max-w-md border border-gray-200 dark:border-gray-700 transition duration-300">
         <div className="mb-4">
           <Image
             src="/avatar/rahuldevrio.webp"
@@ -66,4 +67,6 @@ export default function BuilderPage() {
       </div>
     </div>
   );
-}
+};
+
+export default RahulDevRio;
