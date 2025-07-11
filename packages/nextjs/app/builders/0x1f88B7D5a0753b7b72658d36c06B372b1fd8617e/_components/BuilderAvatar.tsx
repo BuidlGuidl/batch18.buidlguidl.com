@@ -15,7 +15,7 @@ export const BuilderAvatar = () => {
 
   return (
     <div className="min-w-[100px]">
-      <div>
+      <div className="relative">
         {avatar.isLoading ? (
           <div className="w-[100px] h-[100px] flex items-center justify-center">
             <div className="loader" />
