@@ -4,7 +4,7 @@ import clsx from "clsx";
 export const Glasses: FC<{ className: string }> = ({ className }) => {
   return (
     <svg
-      className={clsx("glasses", className)}
+      className={clsx("absolute", "top-8", "left-[14px]", "animate-glasses", className)}
       width="70"
       height="50"
       viewBox="0 40 100 50"
