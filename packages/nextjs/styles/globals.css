@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+
+
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 @theme {
@@ -118,4 +120,10 @@
 
 .link:hover {
   opacity: 80%;
+}
+
+@keyframes pulse-scale {
+  0% { transform: scale(0.95); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(0.95); }
 }
